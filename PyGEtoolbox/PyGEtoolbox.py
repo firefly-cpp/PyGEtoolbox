@@ -1,9 +1,28 @@
 import gzip
 import numpy as np
 import pandas
+import urllib
 
+# class for downloading series from GEO
+
+class Download(object):
+    def __init__(self, series):
+        self.series = series 
+    
+    def download(self):
+        identifier = self.series + "_family.soft.gz"
+        url = "ftp://ftp.ncbi.nlm.nih.gov/geo/series/" + self.series[:5] + "nnn/" + self.series + "/soft/" + identifier
+        save_link = "../raw_data/" + identifier
+        
+        print "Retrieving data from GEO: "
+        
+        try:
+            urllib.urlretrieve(url, save_link)
+        except Exception as e :
+            print "Exception: ",e," at ", url
+        
+        
 # class for processing gene expression series from GEO
-
 
 class Process_GSE_data(object):
     def __init__(self, series):
