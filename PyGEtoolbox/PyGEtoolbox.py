@@ -19,19 +19,19 @@ class Download(object):
             identifier = self.data + "_full.soft.gz"
             url = "ftp://ftp.ncbi.nlm.nih.gov/geo/datasets/" + self.data[:-3] + "nnn/" + self.data + "/soft/" + identifier
         else:
-            print "Unknown dataset"
+            print("Unknown dataset")
             sys.exit(1)
             
         save_folder = "../raw_data/" + identifier
        
        
-        print "Retrieving data from GEO: "
+        print("Retrieving data from GEO: ")
         
         try:
             urllib.urlretrieve(url, save_folder)
-            print "Successfully downloaded dataset: ",self.data
+            print("Successfully downloaded dataset: ",self.data)
         except Exception as e :
-            print "Exception: ",e," at ", url
+            print("Exception: ",e," at ", url)
         
         
 # class for processing gene expression series from GEO
@@ -48,17 +48,17 @@ class Process_GSE_data(object):
         self.series_geo_accession = None
 
     def print_data(self):
-        print self.series_title
+        print(self.series_title)
 
-        print self.series_summary
+        print(self.series_summary)
 
-        print self.series_samples
+        print(self.series_samples)
 
-        print self.series_overall_design
+        print(self.series_overall_design)
 
-        print self.platform
+        print(self.platform)
 
-        print self.series_geo_accession
+        print(self.series_geo_accession)
 
     def save_samples(self, filename, dataset):
         folder = "../datasets/"
@@ -95,7 +95,7 @@ class Process_GSE_data(object):
                 for line in lines:
                     search_sample = "^SAMPLE = " + str(self.series_samples[i])
                     if line.startswith(search_sample):
-                        print "Processing sample: ", self.series_samples[i]
+                        print("Processing sample: ", self.series_samples[i])
 
                         for line2 in lines:
                             if line2.startswith("!sample_table_begin"):
@@ -117,4 +117,4 @@ class Process_GSE_data(object):
 
             # saving the dataset
             self.save_samples(self.series_samples[i], dataset)
-            print "Successfully processed sample: ", self.series_samples[i]
+            print("Successfully processed sample: ", self.series_samples[i])
