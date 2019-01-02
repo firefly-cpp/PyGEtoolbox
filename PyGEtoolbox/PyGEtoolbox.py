@@ -2,22 +2,34 @@ import gzip
 import numpy as np
 import pandas
 import urllib
+import os
+import sys
 
-# class for downloading series from GEO
+# class for downloading series (GSE) and datasets (GDS) from GEO
 
 class Download(object):
-    def __init__(self, series):
-        self.series = series 
+    def __init__(self, data):
+        self.data = data 
     
     def download(self):
-        identifier = self.series + "_family.soft.gz"
-        url = "ftp://ftp.ncbi.nlm.nih.gov/geo/series/" + self.series[:5] + "nnn/" + self.series + "/soft/" + identifier
-        save_link = "../raw_data/" + identifier
-        
+        if "GSE" in self.data:
+            identifier = self.data + "_family.soft.gz"
+            url = "ftp://ftp.ncbi.nlm.nih.gov/geo/series/" + self.data[:-3] + "nnn/" + self.data + "/soft/" + identifier
+        elif "GDS" in self.data:
+            identifier = self.data + "_full.soft.gz"
+            url = "ftp://ftp.ncbi.nlm.nih.gov/geo/datasets/" + self.data[:-3] + "nnn/" + self.data + "/soft/" + identifier
+        else:
+            print "Unknown dataset"
+            sys.exit(1)
+            
+        save_folder = "../raw_data/" + identifier
+       
+       
         print "Retrieving data from GEO: "
         
         try:
-            urllib.urlretrieve(url, save_link)
+            urllib.urlretrieve(url, save_folder)
+            print "Successfully downloaded dataset: ",self.data
         except Exception as e :
             print "Exception: ",e," at ", url
         
@@ -50,8 +62,14 @@ class Process_GSE_data(object):
 
     def save_samples(self, filename, dataset):
         folder = "../datasets/"
+        test_path = folder + self.series_geo_accession
         path = folder + self.series_geo_accession + "/" + filename + ".pkl"
-        dataset.to_pickle(path)
+        
+        if os.path.isdir(test_path):
+            dataset.to_pickle(path)
+        else:
+            os.mkdir(test_path)
+            dataset.to_pickle(path)    
 
     def extract_metadata(self):  # extract metadata and list of samples
         with gzip.open(self.GE_data) as lines:
@@ -81,7 +99,7 @@ class Process_GSE_data(object):
 
                         for line2 in lines:
                             if line2.startswith("!sample_table_begin"):
-                                columns = lines.next().split("\t")
+                                columns = lines.next().rstrip().split("\t")
                                 for line1 in lines:
                                     if line1.startswith("!sample_table_end"):
                                         break
