@@ -1,9 +1,10 @@
 import gzip
 import numpy as np
 import pandas as pd
-import urllib
+import urllib2
 import os
 import sys
+from Functions import chunk_report, chunk_read
 
 # class for downloading series (GSE) and datasets (GDS) from GEO
 
@@ -31,7 +32,12 @@ class Download(object):
         print("Retrieving data from GEO: ")
 
         try:
-            urllib.urlretrieve(url, save_folder)
+            response = urllib2.urlopen(url);
+   	    data = chunk_read(response, report = chunk_report) 
+ 	    save_ = open(save_folder, 'w')		
+   	    save_.write(data)
+   	    save_.close()	
+	
             print("Successfully downloaded dataset: ", self.data)
         except Exception as e:
             print("Exception: ", e, " at ", url)
