@@ -1,10 +1,11 @@
 # PyGEtoolbox - Gene expression toolbox in Python
 
-About project
+## Objective
 
-## Getting Started
 
-Instructions will be added soon. 
+## Installation
+
+    python setup.py install
 
 ## Features
 
@@ -35,3 +36,7 @@ a.print_data()
 a.extract_sample_data()
 ```
 
+## Bugs
+
+This project will be regularly updated during the 2019. Testing this package is more than welcome. 
+Please report all bugs, suggestions and features that could be added.

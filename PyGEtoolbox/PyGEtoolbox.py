@@ -82,21 +82,31 @@ class Process_GSE_data(object):
             dataset.to_pickle(path)
 
     def extract_metadata(self):  # extract metadata and list of samples
+        counter = 0
         with gzip.open(self.GE_data) as lines:
             for line in lines:
                 if line.startswith("!Series_title"):
                     self.series_title = line.split("=")[1].strip()
+                    counter = counter + 1
                 elif line.startswith("!Series_summary"):
                     self.series_summary = line.split("=")[1].strip()
+                    counter = counter + 1
                 elif line.startswith("!Series_overall_design"):
                     self.series_overall_design = line.split("=")[1].strip()
+                    counter = counter + 1
                 elif line.startswith("^PLATFORM"):
                     self.platform = line.split("=")[1].strip()
+                    counter = counter + 1
                 elif line.startswith("!Series_sample_id"):
                     self.series_samples.append(line.split("=")[1].strip())
+                    counter = counter + 1
                 elif line.startswith("!Series_geo_accession"):
                     self.series_geo_accession = line.split("=")[1].strip()
-
+                    counter = counter + 1
+                
+                if counter == 6:
+                    break
+                
     def extract_sample_data(self):  # extract all samples
         for i in range(len(self.series_samples)):
             sample = []
@@ -115,9 +125,7 @@ class Process_GSE_data(object):
                                         break
 
                                     data = line1.rstrip().split("\t")
-
                                     sample.append(data)
-
                                 break
 
             dataset = pd.DataFrame(sample, columns=cols_names)
@@ -125,3 +133,22 @@ class Process_GSE_data(object):
             # saving the dataset
             self.save_samples(self.series_samples[i], dataset)
             print("Successfully processed sample: ", self.series_samples[i])
+
+    #extract gene title and simbol -       
+    def extract_gene_information(self):
+        gene_information = []
+        with gzip.open(self.GE_data) as lines:
+            for line in lines:
+                if line.startswith("!platform_table_begin"):
+                    cols_names = lines.next().rstrip().split("\t") #for future use
+                    for line1 in lines:
+                        if line1.startswith("!platform_table_end"):
+                            break
+
+                        data = line1.rstrip().split("\t")
+                        
+                        if len(data) >= 11:
+                            gene_information.append([data[0], data[9], data[10]])
+                            
+                    break
+    
