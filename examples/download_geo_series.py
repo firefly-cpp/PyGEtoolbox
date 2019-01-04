@@ -4,11 +4,11 @@ sys.path.append('../')
 from PyGEtoolbox import *
 
 #downloading GSE from GEO
-series = Download("GSE105008")
-series.download_SOFT_format() 
+series = Download()
+series.download_SOFT_format("GSE105008") 
 
 #downloading GDE from GEO
-datasets = Download("GDS2003")
-datasets.download_SOFT_format() 
+datasets = Download()
+datasets.download_SOFT_format("GDS2003") 
 
 
