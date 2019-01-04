@@ -5,10 +5,10 @@ from PyGEtoolbox import *
 
 #downloading GSE from GEO
 series = Download("GSE105008")
-series.download() 
+series.download_SOFT_format() 
 
 #downloading GDE from GEO
 datasets = Download("GDS2003")
-datasets.download() 
+datasets.download_SOFT_format() 
 
 
