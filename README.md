@@ -19,18 +19,22 @@
 from PyGEtoolbox import *
 
 #downloading GSE from GEO
-series = Download("GSE105008")
-series.download_SOFT_format() 
+series = Download()
+series.download_SOFT_format("GSE105008") 
 
 #downloading GDE from GEO
-datasets = Download("GDS2003")
-datasets.download_SOFT_format() 
+datasets = Download()
+datasets.download_SOFT_format("GDS2003") 
+
+#downloading CEL file
+cel = Download()
+cel.download_CEL_file("GSM270781")
 ```
 
 ```python
 from PyGEtoolbox import *
 
-a = Process_SOFT_format("../raw_data/GSE10714_family.soft.gz")  # path to the raw data
+a = Process_SOFT_format("../SOFT_format/GSE10714_family.soft.gz")  # path to the raw data
 a.extract_metadata()
 a.print_data()
 a.extract_all_samples()

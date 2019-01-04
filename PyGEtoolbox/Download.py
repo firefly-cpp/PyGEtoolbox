@@ -21,7 +21,7 @@ class Download(object):
             print("Unknown dataset")
             sys.exit(1)
 
-        save_folder = "../raw_data/" + identifier
+        save_folder = "../SOFT_format/" + identifier
 
         print("Retrieving data from GEO: ")
 
