@@ -10,7 +10,7 @@
 ## Features
 
 - Downloading datasets from Gene Expression Omnibus (GEO)
-- Parsing SOFT format, Affymetrix files
+- Parsing SOFT format
 - Differentially Expressed genes analysis (TODO)
 
 ## CODE EXAMPLES:
@@ -29,12 +29,16 @@ datasets.download_SOFT_format("GDS2003")
 #downloading CEL file
 cel = Download()
 cel.download_CEL_file("GSM270781")
+
+#downloading RAW data
+raw_data = Download()
+raw_data.download_RAW_data("GSE41657")
 ```
 
 ```python
 from PyGEtoolbox import *
 
-a = Process_SOFT_format("../SOFT_format/GSE10714_family.soft.gz")  # path to the raw data
+a = Process_SOFT_format("../SOFT_format/GSE10714_family.soft.gz")  # path to the data
 a.extract_metadata()
 a.print_data()
 a.extract_all_samples()

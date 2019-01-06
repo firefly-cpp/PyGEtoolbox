@@ -35,8 +35,26 @@ class Download(object):
             print("Successfully downloaded dataset: ", dataset)
         except Exception as e:
             print("Exception: ", e, " at ", url)
- 
- 
+    
+    def download_RAW_data(self, dataset):
+        identifier = "{}.tar".format(dataset)
+        url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc={}&format=file".format(dataset)
+        
+        save_folder = "../RAW_data/{}".format(identifier) 
+
+        print("Retrieving RAW data from GEO: ")
+
+        try:
+            response = urllib2.urlopen(url)
+            data = chunk_read(response, report=chunk_report)
+            save_ = open(save_folder, 'w')
+            save_.write(data)
+            save_.close()
+
+            print("Successfully downloaded RAW data: ", dataset)
+        except Exception as e:
+            print("Exception: ", e, " at ", url)
+            
     def download_CEL_file(self, sample):
         identifier = sample + ".CEL.gz"
         url = "ftp://ftp.ncbi.nlm.nih.gov/geo/samples/" + sample[:-3] + "nnn/" + sample + "/suppl/" + identifier
