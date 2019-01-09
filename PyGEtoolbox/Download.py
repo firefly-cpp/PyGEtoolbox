@@ -8,7 +8,7 @@ from Functions import chunk_report, chunk_read
 
 class Download(object):
 
-    def download_SOFT_format(self, dataset):
+    def download_SOFT_format(self, dataset, save_folder = "../SOFT_format/"):
         if "GSE" in dataset:
             identifier = dataset + "_family.soft.gz"
             url = "ftp://ftp.ncbi.nlm.nih.gov/geo/series/" + \
@@ -21,7 +21,7 @@ class Download(object):
             print("Unknown dataset")
             sys.exit(1)
 
-        save_folder = "../SOFT_format/" + identifier
+        save_folder = save_folder + identifier
 
         print("Retrieving data from GEO: ")
 
@@ -36,11 +36,11 @@ class Download(object):
         except Exception as e:
             print("Exception: ", e, " at ", url)
     
-    def download_RAW_data(self, dataset):
+    def download_RAW_data(self, dataset, save_folder = "../RAW_data/"):
         identifier = "{}.tar".format(dataset)
         url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc={}&format=file".format(dataset)
         
-        save_folder = "../RAW_data/{}".format(identifier) 
+        save_folder = save_folder + identifier 
 
         print("Retrieving RAW data from GEO: ")
 
@@ -55,11 +55,11 @@ class Download(object):
         except Exception as e:
             print("Exception: ", e, " at ", url)
             
-    def download_CEL_file(self, sample):
+    def download_CEL_file(self, sample, save_folder = "../cel_data/"):
         identifier = sample + ".CEL.gz"
         url = "ftp://ftp.ncbi.nlm.nih.gov/geo/samples/" + sample[:-3] + "nnn/" + sample + "/suppl/" + identifier
         
-        save_folder = "../cel_data/" + identifier
+        save_folder = save_folder + identifier
 
         print("Retrieving CEL file from GEO: ")
 
