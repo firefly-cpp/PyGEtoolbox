@@ -9,8 +9,11 @@
 
 ## Features
 
-- Downloading datasets from Gene Expression Omnibus (GEO)
-- Parsing SOFT format
+- Downloading GEO DataSets from Gene Expression Omnibus (GEO) ([see example](examples/download_SOFT_format.py))
+- Downloading RAW format from GEO ([see example](examples/download_RAW_data.py))
+- Downloading CEL files from GEO ([see example](examples/download_CEL_files.py))
+- Parsing SOFT format ([see example](examples/parse_SOFT_format.py))
+- Affymetrix probe set ID to gene id and gene description conversion ([see example](examples/affy_probe_set_id_to_gene_id.py))
 - Differentially Expressed genes analysis (TODO)
 
 ## CODE EXAMPLES:
@@ -22,7 +25,7 @@ from PyGEtoolbox import *
 series = Download()
 series.download_SOFT_format("GSE105008") 
 
-#downloading GDE from GEO
+#downloading GDS from GEO
 datasets = Download()
 datasets.download_SOFT_format("GDS2003") 
 

@@ -164,6 +164,11 @@ class Process_SOFT_format(object):
     def get_gene_information(self):
         return self.gene_information
 
+    def affy_probe_set_ID_to_gene_id_and_description(self, probe_id):
+        for x in self.gene_information:
+            if probe_id == x[0]:
+                return x[1], x[2]
+        
     def add_gene_information_to_datasets(self, datasets):
         for i in range(len(datasets)):
             gene_title = []
