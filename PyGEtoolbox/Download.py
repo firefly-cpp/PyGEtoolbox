@@ -73,3 +73,21 @@ class Download(object):
             print("Successfully downloaded CEL file: ", sample)
         except Exception as e:
             print("Exception: ", e, " at ", url)
+
+    def download_CEL_file_from_URL(self, sample, url, save_folder = "../cel_data/"):
+        identifier = sample + ".CEL.gz"
+        
+        save_folder = save_folder + identifier
+
+        print("Retrieving CEL file from GEO: ")
+
+        try:
+            response = urllib2.urlopen(url)
+            data = chunk_read(response, report=chunk_report)
+            save_ = open(save_folder, 'w')
+            save_.write(data)
+            save_.close()
+
+            print("Successfully downloaded CEL file: ", sample)
+        except Exception as e:
+            print("Exception: ", e, " at ", url)

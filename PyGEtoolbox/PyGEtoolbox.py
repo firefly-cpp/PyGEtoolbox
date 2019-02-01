@@ -129,22 +129,32 @@ class Process_SOFT_format(object):
     def get_dataset(self):
         return self.dataset
 
-    def extract_sample_details(self, samples): # TODO
+    def extract_sample_details(self, samples): 
+        all_details = []
         for i in range(len(samples)):
             sample = []
             with gzip.open(self.GE_data) as lines:
-
+                print "Processing sample: ", self.series_samples[i]
                 for line in lines:
                     search_sample = "^SAMPLE = " + str(self.series_samples[i])
                     if line.startswith(search_sample):
                        
                         for line2 in lines:
                             if line2.startswith("!Sample_title"):
-                                print line2.split("=")[1].strip()
-                            
-                            break    
-                               
-                            
+                                title = line2.split("=")[1].strip()
+			    if line2.startswith("!Sample_source_name_ch1"):
+				source_name = line2.split("=")[1].strip()
+			    if line2.startswith("!Sample_characteristics_ch1"):
+				characteristics = line2.split("=")[1].strip()	
+			    if line2.startswith("!Sample_supplementary_file"):
+				supplementary_file = line2.split("=")[1].strip()	
+				sample_details = {'GEO_accession': self.series_samples[i], 'Title': title, 'Source_name': source_name, 'Characteristics': characteristics, 'Supplementary_file': supplementary_file}
+				all_details.append(sample_details)
+			    	break
+				
+    
+        return all_details
+    
     # extract gene title and symbol -
     def extract_gene_information(self):
         with gzip.open(self.GE_data) as lines:
