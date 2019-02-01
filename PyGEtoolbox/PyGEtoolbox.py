@@ -64,8 +64,11 @@ class Process_SOFT_format(object):
                 elif line.startswith("!Platform_data_row_count"):
                     break
 
-    def get_samples():
+    def get_samples(self):
         return self.series_samples
+
+    def get_series_summary(self):
+        return self.series_summary
 
     def extract_all_samples(self):  # extract all samples
         for i in range(len(self.series_samples)):
