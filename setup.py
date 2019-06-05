@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+import os
+import sys
 
 with open('README.md') as f:
     readme = f.read()
@@ -16,5 +18,10 @@ setup(
     author='firefly-cpp',
     url='https://github.com/firefly-cpp/PyGEtoolbox',
     license=license,
+    classifiers=[
+        'Topic :: Scientific/Engineering',
+        'Topic :: Software Development'
+      ],
+    include_package_data=True,
     packages=find_packages(exclude=('tests', 'docs'))
 )

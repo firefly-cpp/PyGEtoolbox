@@ -1,4 +1,3 @@
-numpy
-pandas
 nose
 sphinx
+urllib2
