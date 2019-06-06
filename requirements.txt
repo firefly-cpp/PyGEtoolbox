@@ -1,3 +1,4 @@
 nose
 sphinx
 urllib2
+pandas
