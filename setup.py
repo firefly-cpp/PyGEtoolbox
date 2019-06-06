@@ -18,7 +18,7 @@ extra_files = package_files('PyGEtoolbox/')
 
 setup(
     name='PyGEtoolbox',
-    version='0.0.2',
+    version='0.0.3',
     description='Gene expression toolbox in Python', 
     long_description_content_type="text/markdown",
     long_description=readme,
@@ -30,8 +30,7 @@ setup(
         'Topic :: Software Development'
       ],
     install_requires=[
-          'pandas',
-	  'urllib2'
+          'pandas'
       ],
     packages = ['PyGEtoolbox'],
     package_data={'': extra_files}
