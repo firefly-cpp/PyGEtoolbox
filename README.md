@@ -51,3 +51,15 @@ a.extract_all_samples()
 
 This project will be regularly updated during the 2019. Testing this package is more than welcome. 
 Please report all bugs, suggestions and features that could be added.
+
+## References
+
+Datasets were downloaded from Gene Expression Omnibus available at the following website: [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)
+
+## License
+
+This package is distributed under the BSD 2-Clause "Simplified" License.
+
+## Disclaimer
+
+This framework is provided as-is, and there are no guarantees that it fits your purposes or that it is bug-free. Use it at your own risk!
